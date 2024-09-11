@@ -1,5 +1,6 @@
 package org.jsp.bookmyticket.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.jsp.bookmyticket.model.Bus;
@@ -18,6 +19,10 @@ public class BusDao {
 
 	public Optional<Bus> findById(int id) {
 		return busRepository.findById(id);
+	}
+	
+	public List<Bus> findAll() {
+		return busRepository.findAll();
 	}
 	
 //	public Optional<Bus> findByBusName(String bus_name) {

@@ -35,6 +35,10 @@ public class AdminDao {
 	public Optional<Admin> findByToken(String token) {
 		return adminRepository.findByToken(token);
 	}
+	
+	public Optional<Admin> findByEmail(String email){
+		return adminRepository.findByEmail(email);
+	}
 
 	
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import static org.jsp.bookmyticket.util.ApplicationConstants.ADMIN_VERIFY_LINK;
 import static org.jsp.bookmyticket.util.ApplicationConstants.USER_VERIFY_LINK;
+import static org.jsp.bookmyticket.util.ApplicationConstants.ADMIN_RESET_PASSWORD_LINK;
+import static org.jsp.bookmyticket.util.ApplicationConstants.USER_RESET_PASSWORD_LINK;
 
 import jakarta.servlet.http.HttpServletRequest;
 import net.bytebuddy.utility.RandomString;
@@ -33,4 +35,20 @@ public class LinkGeneratorService {
 		String siteUrl = request.getRequestURL().toString();
 		return siteUrl.replace(request.getServletPath(), USER_VERIFY_LINK + user.getToken());
 	}
+	
+	public String getResetPasswordLink(Admin admin, HttpServletRequest request) {
+		admin.setToken(RandomString.make(45));
+		adminDao.saveAdmin(admin);
+		String siteUrl = request.getRequestURL().toString();
+		return siteUrl.replace(request.getServletPath(), ADMIN_RESET_PASSWORD_LINK + admin.getToken());
+	}
+	
+	public String getResetPasswordLink(User user, HttpServletRequest request) {
+		user.setToken(RandomString.make(45));
+		userDao.saveUser(user);
+		String siteUrl = request.getRequestURL().toString();
+		return siteUrl.replace(request.getServletPath(), USER_RESET_PASSWORD_LINK + user.getToken());
+	}
+	
+	
 }

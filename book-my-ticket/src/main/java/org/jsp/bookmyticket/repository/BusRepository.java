@@ -1,12 +1,19 @@
 package org.jsp.bookmyticket.repository;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.jsp.bookmyticket.model.Bus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface BusRepository extends JpaRepository<Bus, Integer> {
-//	Optional<Bus> findByBusNumber(String bus_number);
+//	@Query("select b from Bus b where b.admin.id=?1")
+//	List<Bus> findByAdminId(int id);
+//
+//	@Query("select b from Bus b where b.from=?1 and b.to=?2 and b.dateofDeparture=?3")
+//	List<Bus> findBuses(String from, String to, LocalDate dateOfDeparture);
 	
-//	Optional<Bus> findByBusName(String bus_name);
+	
 }

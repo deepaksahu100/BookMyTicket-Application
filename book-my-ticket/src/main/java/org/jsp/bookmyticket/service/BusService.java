@@ -1,5 +1,6 @@
 package org.jsp.bookmyticket.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.jsp.bookmyticket.Exception.AdminNotFoundException;
@@ -64,6 +65,14 @@ public class BusService {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(structure);
 		}
 		throw new BusNotFoundException("Cannot Update Bus as Id is Invalid");
+	}
+	
+	public ResponseEntity<ResponseStructure<List<Bus>>> findAll() {
+		ResponseStructure<List<Bus>> structure = new ResponseStructure<>();
+		structure.setData(busDao.findAll());
+		structure.setMessage("List of All Buses");
+		structure.setStatusCode(HttpStatus.OK.value());
+		return ResponseEntity.status(HttpStatus.OK).body(structure);
 	}
 
 	public ResponseEntity<ResponseStructure<BusResponse>> findById(int id) {

@@ -1,8 +1,11 @@
 package org.jsp.bookmyticket.controller;
 
+import java.util.List;
+
 import org.jsp.bookmyticket.dto.BusRequest;
 import org.jsp.bookmyticket.dto.BusResponse;
 import org.jsp.bookmyticket.dto.ResponseStructure;
+import org.jsp.bookmyticket.model.Bus;
 import org.jsp.bookmyticket.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +41,11 @@ public class BusController {
 	@GetMapping("{id}")
 	public ResponseEntity<ResponseStructure<BusResponse>> saveBus(@PathVariable int id) {
 		return busService.findById(id);
+	}
+	
+	@GetMapping
+	public ResponseEntity<ResponseStructure<List<Bus>>> findAll() {
+		return busService.findAll();
 	}
 	
 	@DeleteMapping("/{id}")

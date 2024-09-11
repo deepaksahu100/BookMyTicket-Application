@@ -139,6 +139,29 @@ public class AdminService {
 		return "Your Account has been activated";
 	}
 	
+	public String forgotPassword(String email, HttpServletRequest request) {
+		Optional<Admin> recAdmin = adminDao.findByEmail(email);
+		if(recAdmin.isEmpty())
+			throw new AdminNotFoundException("Invalid Email Id");
+		Admin admin = recAdmin.get();
+		String resetPasswordLink = linkGeneratorService.getResetPasswordLink(admin, request);
+		emailConfiguration.setToAddress(email);
+		emailConfiguration.setText("Please on the following link to reset your password "+ resetPasswordLink);
+		emailConfiguration.setSubject("Reset Your Password");
+		mailService.sendMail(emailConfiguration);
+		return "Reset Password Link has been sent to entered mail Id";
+	}
+	
+	public AdminResponse verifyLink(String token) {
+		Optional<Admin> recAdmin = adminDao.findByToken(token);
+		if(recAdmin.isEmpty())
+			throw new AdminNotFoundException("Link is Invalid");
+		Admin dbAdmin = recAdmin.get();
+		dbAdmin.setToken(null);
+		adminDao.saveAdmin(dbAdmin);
+		return mapToAdminResponse(dbAdmin);
+	}
+	
 	
 	
 	
